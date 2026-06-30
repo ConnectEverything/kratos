@@ -16,6 +16,14 @@ import (
 	"github.com/ory/x/urlx"
 )
 
+const (
+	// UpdateIdentityOnLoginNever disables identity updates on login (default).
+	UpdateIdentityOnLoginNever = "never"
+	// UpdateIdentityOnLoginAutomatic re-runs the Jsonnet claims mapper on every
+	// OIDC login and updates the identity's traits and metadata automatically.
+	UpdateIdentityOnLoginAutomatic = "automatic"
+)
+
 type Configuration struct {
 	// ID is the provider's ID
 	ID string `json:"id"`
@@ -129,6 +137,15 @@ type Configuration struct {
 	// Instead of <base-url>/self-service/methods/oidc/callback/<provider>, you must use <base-url>/self-service/methods/oidc/callback
 	// (Note the missing <provider> path segment and no trailing slash).
 	PKCE string `json:"pkce"`
+
+	// UpdateIdentityOnLogin controls whether the identity is updated from
+	// OIDC claims on each login.
+	//
+	// Possible values:
+	// - "never" (default): the identity is not updated on login.
+	// - "automatic": re-runs the Jsonnet claims mapper on every OIDC login
+	//   and updates the identity's traits and metadata automatically.
+	UpdateIdentityOnLogin string `json:"update_identity_on_login,omitempty"`
 }
 
 func (p Configuration) Redir(public *url.URL) string {

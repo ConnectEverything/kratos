@@ -574,6 +574,13 @@
           "type": "string",
           "enum": ["auto", "never", "force"],
           "default": "auto"
+        },
+        "update_identity_on_login": {
+          "title": "Update identity on login",
+          "description": "Controls whether the identity is updated from OIDC claims on each login. `never` (default) does not update the identity; `automatic` re-runs the Jsonnet claims mapper on every OIDC login and updates the identity's traits and metadata.",
+          "type": "string",
+          "enum": ["never", "automatic"],
+          "default": "never"
         }
       },
       "additionalProperties": false,
