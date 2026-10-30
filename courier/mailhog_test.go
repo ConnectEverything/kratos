@@ -1,7 +1,7 @@
 // Copyright © 2023 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-package x
+package courier_test
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ var (
 	resources   []*dockertest.Resource
 )
 
-func CleanUpTestSMTP() {
+func cleanUpTestSMTP() {
 	resourceMux.Lock()
 	defer resourceMux.Unlock()
 	for _, resource := range resources {
@@ -32,7 +32,7 @@ func CleanUpTestSMTP() {
 	resources = nil
 }
 
-func RunTestSMTP(options ...string) (smtp, api string, err error) {
+func runTestSMTP(options ...string) (smtp, api string, err error) {
 	if smtp, api := os.Getenv("TEST_MAILHOG_SMTP"), os.Getenv("TEST_MAILHOG_API"); smtp != "" && api != "" {
 		return smtp, api, nil
 	} else if len(smtp)+len(api) > 0 {
